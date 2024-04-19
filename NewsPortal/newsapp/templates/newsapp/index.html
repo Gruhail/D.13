@@ -1,0 +1,39 @@
+{% extends 'newsapp/base.html' %} {% block content %}
+
+<style>
+  .rounded-img {
+    width: 100%;
+    border-radius: 10%;
+  }
+</style>
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+    {% for p in posts %}
+    <div class="col" style="padding-top: 20px">
+      <div class="card">
+        <h5>Категория: {{p.postCategory}}</h5>
+        <p>Дата: {{p.dateCreation|date:"d-m-Y H:i:s"}}</p>
+        {% if p.photo %}
+        <img class="rounded-img" src="{{p.photo.url}}" alt="image" />
+        <!-- <img class="card-img-top" src="{{p.photo.url}}" alt="image" /> -->
+        {% endif %}
+        <div class="card-body">
+          <h4 class="card-title">{{p.title}}</h4>
+          <p class="card-text">{{p.text|linebreaks|truncatechars:500}}</p>
+          <a
+            href="{{ p.get_absolute_url }}"
+            target="_blank"
+            class="btn btn-outline-success"
+            >Читать пост</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<hr />
+
+{% endblock %}
